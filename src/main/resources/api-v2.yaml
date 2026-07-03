@@ -1,0 +1,430 @@
+openapi: 3.1.0
+info:
+  title: Unified OpenBanking API - OpenAPI 3.2
+tags:
+  - name: Consent
+    description: Operations with consents
+paths:
+  /v2/consents/account-access:
+    post:
+      tags:
+        - Consent
+      description: Create a new consent
+      parameters:
+        - $ref: '#/components/parameters/XRequestID'
+        - $ref: '#/components/parameters/PSUID'
+        - $ref: '#/components/parameters/PSUIDType'
+        - $ref: '#/components/parameters/PSUIPAddress'
+        - $ref: '#/components/parameters/BankID'
+        - $ref: '#/components/parameters/ClientID'
+        - $ref: '#/components/parameters/TPPRedirectURI'
+        - $ref: '#/components/parameters/TPPNokRedirectURI'
+
+      requestBody:
+        description: A new consent data
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateConsentRequest'
+
+      responses:
+        '201':
+          description: Consent has been successfully created
+          headers:
+            X-Request-ID:
+              description: 'ID of the request'
+              required: false
+              schema:
+                $ref: '#/components/parameters/XRequestID'
+          content:
+            application/json:
+              schema:
+                required:
+                  - consentId
+                  - consentStatus
+                type: object
+                properties:
+                  consentId:
+                    type: string
+                    description: Consent identifier
+                    example: '37484g948g984k'
+                  consentStatus:
+                    $ref: '#/components/schemas/ConsentStatus'
+                  psuMessage:
+                    type: string
+                    description: The message for the PSU
+                    example: 'The consent should be confirmed by banking application'
+                  scaMethods:
+                    $ref: '#/components/schemas/ScaMethod'
+                  _links:
+                    type: object
+                    properties:
+                      startAuthorisation:
+                        type: string
+                        description: 'Link to forced start of Authorisation'
+        '422':
+          description: 'Bad request'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /v2/consents/account-access/{consentId}/auth:
+    post:
+      tags:
+        - Consent
+      description: Initiate forced authorisation of the consent
+      parameters:
+        - $ref: '#/components/parameters/ConsentID'
+        - $ref: '#/components/parameters/XRequestID'
+        - $ref: '#/components/parameters/SCAMethod'
+        - $ref: '#/components/parameters/BankID'
+        - $ref: '#/components/parameters/PSUIPAddress'
+
+      responses:
+        '201':
+          description: Forced auth initiated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  scaStatus:
+                    $ref: '#/components/schemas/SCAStatus'
+                  authorisationId:
+                    type: string
+                    example: '872837878273-7883'
+                  _links:
+                    type: object
+                    properties:
+                      scaRedirect:
+                        type: string
+                        description: Link to redirect to authorisation
+                        example: 'https://bank.ua/openbanking/consents/{9283989823}/auth'
+                  psuMessage:
+                    type: string
+                    example: 'Message from the bank'
+        '422':
+          description: Forced auth failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /v2/consents/account-access/{consentId}:
+    get:
+      tags:
+        - Consent
+      description: Get the information about the consent
+      parameters:
+        - $ref: '#/components/parameters/ConsentID'
+        - $ref: '#/components/parameters/XRequestID'
+        - $ref: '#/components/parameters/BankID'
+
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/CreateConsentRequest'
+                  - type: object
+                    properties:
+                      consentStatus:
+                        $ref: '#/components/schemas/ConsentStatus'
+        '422':
+          description: 'Failed'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+        - Consent
+      description: Revoke consent to getting information about accounts
+      parameters:
+        - $ref: '#/components/parameters/ConsentID'
+        - $ref: '#/components/parameters/XRequestID'
+      responses:
+        '204':
+          description: The consent has been revoked
+        '422':
+          description: Revoking the consent failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /v2/consents/account-access/{consentId}/status:
+    get:
+      tags:
+        - Consent
+      description: Get status of the consent
+      parameters:
+        - $ref: '#/components/parameters/ConsentID'
+        - $ref: '#/components/parameters/XRequestID'
+        - $ref: '#/components/parameters/BankID'
+        - $ref: '#/components/parameters/ClientID'
+
+      responses:
+        '200':
+          description: The status of the consent
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - consentStatus
+                properties:
+                  consentStatus:
+                    $ref: '#/components/schemas/ConsentStatus'
+                  psuMessage:
+                    type: string
+                    description: The message for the payment service user
+                    example: The consent should be confirmed by banking application
+        '422':
+          description: 'Invalid ConsentID'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  parameters:
+
+    BankID:
+      in: header
+      name: BankID
+      description: ID of the Bank
+      type: string
+      enum:
+        - ua-privatbank
+        - ua-mono
+        - ua-raiffeisen
+        - ua-pumb
+        - ua-ukrsibbank
+      required: true
+      example: ua-privatbank
+
+    ClientID:
+      in: header
+      name: ClientID
+      description: ID of the bank client (needs to be for UkrSibBank)
+      type: string
+      example: '98283ued88d8d88d8d'
+
+    SCAMethod:
+      in: header
+      name: SCAMethod
+      description: SCA Method
+      schema:
+        $ref: '#/components/schemas/ScaMethod'
+
+    ConsentID:
+      in: path
+      name: consentId
+      description: Consent identifier
+      schema:
+        type: string
+      required: true
+      example: 876hgd827ghjjsd08387
+
+    XRequestID:
+      in: header
+      name: X-Request-ID
+      description: Request identifier
+      example: '310e0902-165d-40f3-a5c8-05cdaee686df'
+      schema:
+        type: string
+        format: uuid
+      required: true
+
+    PSUID:
+      in: header
+      name: PSU-ID
+      description: Payment Service User identifier (IBAN or phone number in Ukraine)
+      schema:
+        type: string
+      required: true
+      example: 'UA213223130000026007233566001'
+
+    PSUIDType:
+      in: header
+      name: PSU-ID-type
+      description: Type of PSU identifier
+      schema:
+        type: string
+        enum:
+          - IBAN
+          - phone
+      required: true
+
+    PSUIPAddress:
+      in: header
+      name: PSU-IP-Address
+      description: IP Adress PSU or TPP the request was generated from
+      schema:
+        type: string
+      example: 87.56.34.12
+      required: true
+
+    TPPRedirectURI:
+      in: header
+      name: TPP-Redirect-URI
+      description: The link to return user to TPP application
+
+    TPPNokRedirectURI:
+      in: header
+      name: TPP-Nok-Redirect-URI
+      description: The link where the user should be redirected in case of a negative result of the redirect SCA method
+
+  schemas:
+
+    SCAStatus:
+      description: Status of Strong Customer Authorisation
+      type: object
+      properties:
+        scaStatus:
+          type: string
+          enum:
+            - psuIdentified
+            - psuAuthenticated
+            - started
+            - failed
+            - finalised
+
+    CreateConsentRequest:
+      type: object
+      properties:
+        access:
+          $ref: '#/components/schemas/ConsentAccess'
+        consentType:
+          type: string
+          enum:
+            - accountsList
+            - detailed
+          description: Consent type
+        recurringIndicator:
+          type: boolean
+          description: Repeated consent
+        validTo:
+          type: string
+          format: date
+          description: The last day when the consent is valid
+          example: 16.06.2026
+        frequencyPerDay:
+          type: integer
+          description: Number of requests per day
+          example: 4
+
+    ConsentAccess:
+      type: object
+      required:
+        - payments
+      properties:
+        payments:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConsentPaymentAccess'
+
+    ConsentPaymentAccess:
+      type: object
+      required:
+        - account
+        - rights
+      properties:
+        account:
+          $ref: '#/components/schemas/ConsentAccount'
+        rights:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountAccessRight'
+
+    ConsentAccount:
+      type: object
+      required:
+        - iban
+        - ccy
+      properties:
+        iban:
+          type: string
+          description: Target IBAN
+          example: UA213223130000026007233566001
+        ccy:
+          type: string
+          description: Currency code
+          enum:
+            - UAH
+            - EUR
+            - USD
+          example: UAH
+
+    AccountAccessRight:
+      type: string
+      description: Account access rights
+      enum:
+        - accountDetails
+        - balances
+        - transactions
+
+    CreateConsentResponse:
+      type: object
+      required:
+        - consentId
+        - consentStatus
+        - scaMethods
+      properties:
+        consentId:
+          type: string
+          description: Consent identifier
+        consentStatus:
+          $ref: '#/components/schemas/ConsentStatus'
+        psuMessage:
+          type: string
+          description: The message for the PSU
+          example: 'The consent should be confirmed by banking application'
+        scaMethods:
+          $ref: '#/components/schemas/ScaMethod'
+        _links:
+          $ref: '#/components/schemas/CreateConsentLinks'
+
+    ConsentStatus:
+      type: string
+      description: Status of the consent created
+      enum:
+        - received
+        - rejected
+        - valid
+        - partiallyAuthorised
+        - revokedByPsu
+        - terminatedByTpp
+        - replacedByTpp
+        - expired
+
+    ScaMethod:
+      type: string
+      description: Method of SCA
+      enum:
+        - DECOUPLED
+        - REDIRECT
+
+    CreateConsentLinks:
+      type: object
+      properties:
+        startAuthorisation:
+          type: string
+          description: 'Link to forced start of Authorisation'
+
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: 'Code of the error'
+          example: '7846'
+        message:
+          type: string
+          description: 'Message for user'
+          example: 'Undefined error'
