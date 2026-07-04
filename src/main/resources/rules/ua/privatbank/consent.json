@@ -2,7 +2,7 @@
   "endpoints": [
     {
       "code": "createConsent",
-      "url": "v2/consents/account-access",
+      "url": "/v2/consents/account-access",
       "method": "post",
       "request": {
         "headers": [
@@ -149,7 +149,7 @@
     },
     {
       "code": "forcedAuth",
-      "url": "v2/consents/account-access/{consentId}/authorisations",
+      "url": "/v2/consents/account-access/{consentId}/authorisations",
       "method": "post",
       "request": {
         "path": [
