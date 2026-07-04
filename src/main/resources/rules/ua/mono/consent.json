@@ -1,0 +1,378 @@
+{
+  "endpoints": [
+    {
+      "code": "createConsent",
+      "url": "/v2/consents/account-access",
+      "method": "post",
+      "request": {
+        "headers": [
+          {
+            "code": "X-Request-ID",
+            "method": "copy"
+          },
+          {
+            "code": "PSU-ID",
+            "method": "copy"
+          },
+          {
+            "code": "PSU-ID-Type",
+            "method": "constant",
+            "value": "IBAN"
+          },
+          {
+            "code": "PSU-IP-Address",
+            "method": "copy"
+          },
+          {
+            "code": "PSU-Redirect-URI",
+            "method": "copy"
+          }
+        ],
+        "payload": {
+          "nodes": [
+            {
+              "type": "node",
+              "code": "access",
+              "parent": "root"
+            },
+            {
+              "type": "node",
+              "code": "payments",
+              "parent": "access"
+            },
+            {
+              "type": "node",
+              "code": "account",
+              "parent": "payments"
+            },
+            {
+              "type": "value",
+              "code": "iban",
+              "parent": "payments",
+              "method": "copy",
+              "source": "request",
+              "sourceValue": "access.payments.account.iban"
+            },
+            {
+              "type": "value",
+              "code": "currency",
+              "parent": "payments",
+              "method": "copy",
+              "source": "request",
+              "sourceValue": "access.payments.account.ccy"
+            },
+            {
+              "type": "value",
+              "code": "rights",
+              "parent": "payments",
+              "method": "copy",
+              "source": "request",
+              "sourceValue": "access.payments.account.rights"
+            },
+            {
+              "type": "value",
+              "code": "consentType",
+              "parent": "root",
+              "method": "copy",
+              "source": "request",
+              "sourceValue": "consentType"
+            },
+            {
+              "type": "value",
+              "code": "reccurringIndicator",
+              "parent": "root",
+              "method": "copy",
+              "source": "request",
+              "sourceValue": "reccurringIndicator"
+            },
+            {
+              "type": "value",
+              "code": "validTo",
+              "parent": "root",
+              "method": "copy",
+              "source": "request",
+              "sourceValue": "validTo"
+            },
+            {
+              "type": "value",
+              "code": "frequencyPerDay",
+              "parent": "root",
+              "method": "copy",
+              "source": "request",
+              "sourceValue": "frequencyPerDay"
+            }
+          ]
+        }
+      },
+      "response": {
+        "httpStatusCode": "201",
+        "headers": [
+          {
+            "code": "X-Request-ID",
+            "method": "copy",
+            "source": "request"
+          }
+        ],
+        "payload": {
+          "nodes": [
+            {
+              "type": "value",
+              "code": "consentStatus",
+              "parent": "root",
+              "method": "copy",
+              "source": "bankResponse",
+              "sourceValue": "consentStatus"
+            },
+            {
+              "type": "value",
+              "code": "consentId",
+              "parent": "root",
+              "method": "copy",
+              "source": "bankResponse",
+              "sourceValue": "consentId"
+            },
+            {
+              "type": "value",
+              "code": "psuMessage",
+              "parent": "root",
+              "method": "copy",
+              "source": "bankResponse",
+              "sourceValue": "psuMessage"
+            },
+            {
+              "type": "node",
+              "code": "_links",
+              "parent": "root"
+            },
+            {
+              "type": "value",
+              "code": "startAuthorisation",
+              "parent": "root",
+              "method": "copy",
+              "source": "bankResponse",
+              "sourceValue": "_links.startAuthorisation.href"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": "forcedAuth",
+      "url": "/v2/consents/account-access/{consentId}/authorisations",
+      "method": "post",
+      "request": {
+        "path": [
+          {
+            "code": "consentId",
+            "method": "copy"
+          }
+        ],
+        "headers": [
+          {
+            "code": "X-Request-ID",
+            "method": "copy"
+          }
+        ]
+      },
+      "response": {
+        "httpStatusCode": "201",
+        "payload": {
+          "nodes": [
+            {
+              "type": "value",
+              "code": "scaStatus",
+              "parent": "root",
+              "method": "copy",
+              "source": "bankResponse",
+              "sourceValue": "scaStatus"
+            },
+            {
+              "type": "value",
+              "code": "authorisationId",
+              "parent": "root",
+              "method": "copy",
+              "source": "bankResponse",
+              "sourceValue": "authorisationId"
+            },
+            {
+              "type": "node",
+              "code": "_links",
+              "parent": "root"
+            },
+            {
+              "type": "value",
+              "code": "scaRedirect",
+              "parent": "_links",
+              "method": "copy",
+              "source": "bankResponse",
+              "sourceValue": "_links.scaRedirect.href"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": "getConsentInformation",
+      "url": "/v2/consents/account-access/{consentId}",
+      "method": "get",
+      "request": {
+        "path": [
+          {
+            "code": "consentId",
+            "method": "copy"
+          }
+        ],
+        "headers": [
+          {
+            "code": "X-Request-ID",
+            "method": "copy"
+          }
+        ]
+      },
+      "response": {
+        "httpStatusCode": "200",
+        "payload": {
+          "nodes": [
+            {
+              "type": "node",
+              "code": "access",
+              "parent": "root"
+            },
+            {
+              "type": "node",
+              "code": "payments",
+              "parent": "access"
+            },
+            {
+              "type": "node",
+              "code": "account",
+              "parent": "payments"
+            },
+            {
+              "type": "value",
+              "code": "iban",
+              "parent": "account",
+              "method": "copy",
+              "source": "bankResponse",
+              "sourceValue": "access.payments.account.iban"
+            },
+            {
+              "type": "value",
+              "code": "ccy",
+              "parent": "account",
+              "method": "copy",
+              "source": "bankResponse",
+              "sourceValue": "access.payments.account.currency"
+            },
+            {
+              "type": "value",
+              "code": "rights",
+              "parent": "payments",
+              "method": "copy",
+              "source": "bankResponse",
+              "sourceValue": "access.payments.rights"
+            },
+            {
+              "type": "value",
+              "code": "consentType",
+              "parent": "root",
+              "method": "copy",
+              "source": "bankResponse",
+              "sourceValue": "consentType"
+            },
+            {
+              "type": "value",
+              "code": "reccurringIndicator",
+              "parent": "root",
+              "method": "copy",
+              "source": "bankResponse",
+              "sourceValue": "reccurringIndicator"
+            },
+            {
+              "type": "value",
+              "code": "validTo",
+              "parent": "root",
+              "method": "copy",
+              "source": "bankResponse",
+              "sourceValue": "validTo"
+            },
+            {
+              "type": "value",
+              "code": "frequencyPerDay",
+              "parent": "root",
+              "method": "copy",
+              "source": "bankResponse",
+              "sourceValue": "frequencyPerDay"
+            },
+            {
+              "type": "value",
+              "code": "consentStatus",
+              "parent": "root",
+              "method": "copy",
+              "source": "bankResponse",
+              "sourceValue": "consentStatus"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "code": "revokeConsent",
+      "url": "/v2/consents/account-access/{consentId}",
+      "method": "delete",
+      "request": {
+        "path": [
+          {
+            "code": "consentId",
+            "method": "copy"
+          }
+        ],
+        "headers": [
+          {
+            "code": "X-Request-ID",
+            "method": "copy"
+          }
+        ]
+      },
+      "response": {
+        "httpStatusCode": "204"
+      }
+    },
+    {
+      "code": "getConsentStatus",
+      "url": "/v2/consents/account-access/{consentId}/status",
+      "method": "get",
+      "request": {
+        "request": {
+          "path": [
+            {
+              "code": "consentId",
+              "method": "copy"
+            }
+          ],
+          "headers": [
+            {
+              "code": "X-Request-ID",
+              "method": "copy"
+            }
+          ]
+        },
+        "response": {
+          "httpStatusCode": "200",
+          "payload": {
+            "nodes": [
+              {
+                "type": "value",
+                "code": "consentStatus",
+                "parent": "root",
+                "method": "copy",
+                "source": "bankResponse",
+                "sourceValue": "consentStatus"
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
