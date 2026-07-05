@@ -159,6 +159,10 @@
     },
     {
       "code": "forcedAuth",
+      "environments": {
+        "stage": "https://openbank-sandbox.raiffeisen.ua/rbua/prod02/psd2-bgs-authorisation-api",
+        "prod": ""
+      },
       "url": "/v2/consents/account-access/{consentId}/authorisations",
       "method": "post",
       "request": {

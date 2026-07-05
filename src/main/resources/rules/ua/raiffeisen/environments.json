@@ -1,4 +1,4 @@
 {
-  "stage": "",
-  "prod": "https://openbank-sandbox.raiffeisen.ua/rbua/prod02/psd2-bgs-consent-api-2.1.0-rbua"
+  "stage": "https://openbank-sandbox.raiffeisen.ua/rbua/prod02/psd2-bgs-consent-api-2.1.0-rbua",
+  "prod": ""
 }
