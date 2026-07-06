@@ -15,6 +15,11 @@
             "method": "copy"
           },
           {
+            "code": "PSU-ID-Type",
+            "method": "constant",
+            "value": "IBAN"
+          },
+          {
             "code": "PSU-IP-Address",
             "method": "copy"
           }
@@ -58,7 +63,7 @@
               "parent": "payments",
               "method": "copy",
               "source": "request",
-              "sourceValue": "access.payments.account.rights"
+              "sourceValue": "access.payments.rights"
             },
             {
               "type": "value",
@@ -124,6 +129,14 @@
             },
             {
               "type": "value",
+              "code": "scaMethods",
+              "parent": "root",
+              "method": "copy",
+              "source": "bankResponse",
+              "sourceValue": "scaMethods"
+            },
+            {
+              "type": "value",
               "code": "psuMessage",
               "parent": "root",
               "method": "copy",
@@ -141,7 +154,7 @@
               "parent": "root",
               "method": "copy",
               "source": "bankResponse",
-              "sourceValue": "get_links.startAuthorisation"
+              "sourceValue": "_links.startAuthorisation.href"
             }
           ]
         }
@@ -149,18 +162,22 @@
     },
     {
       "code": "forcedAuth",
-      "url": "/v2/consents/account-access/{consentId}/authorisations",
+      "url": "/v2/consents/account-access/{consent_id}/authorisations",
       "method": "post",
       "request": {
         "path": [
           {
-            "code": "consentId",
+            "code": "consent_id",
             "method": "copy"
           }
         ],
         "headers": [
           {
             "code": "X-Request-ID",
+            "method": "copy"
+          },
+          {
+            "code": "PSU-IP-Address",
             "method": "copy"
           }
         ]
@@ -186,6 +203,14 @@
               "sourceValue": "authorisationId"
             },
             {
+              "type": "value",
+              "code": "psuMessage",
+              "parent": "root",
+              "method": "copy",
+              "source": "bankResponse",
+              "sourceValue": "psuMessage"
+            },
+            {
               "type": "node",
               "code": "_links",
               "parent": "root"
@@ -196,15 +221,7 @@
               "parent": "_links",
               "method": "copy",
               "source": "bankResponse",
-              "sourceValue": "get_links.scaRedirect"
-            },
-            {
-              "type": "value",
-              "code": "psuMessage",
-              "parent": "root",
-              "method": "copy",
-              "source": "bankResponse",
-              "sourceValue": "psuMessage"
+              "sourceValue": "_links.scaRedirect"
             }
           ]
         }
@@ -317,10 +334,15 @@
     },
     {
       "code": "revokeConsent",
-      "url": "/v2/consents/account-access/{consentId}",
+      "url": "/v2/consents/{consentCategory}/{consentId}",
       "method": "delete",
       "request": {
         "path": [
+          {
+            "code": "consentCategory",
+            "method": "constant",
+            "value": "account-access"
+          },
           {
             "code": "consentId",
             "method": "copy"
@@ -367,14 +389,6 @@
                 "method": "copy",
                 "source": "bankResponse",
                 "sourceValue": "consentStatus"
-              },
-              {
-                "type": "value",
-                "code": "psuMessaage",
-                "parent": "root",
-                "method": "copy",
-                "source": "bankResponse",
-                "sourceValue": "psuMessage"
               }
             ]
           }

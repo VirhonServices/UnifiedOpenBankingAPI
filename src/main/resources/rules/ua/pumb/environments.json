@@ -1,0 +1,4 @@
+{
+  "stage": "https://open-api-sandbox.dts.fuib.com/psd2/openbanking/",
+  "prod": "https://open-api.pumb.ua/psd2/openbanking/"
+}

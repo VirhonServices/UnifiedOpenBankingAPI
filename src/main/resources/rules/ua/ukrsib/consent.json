@@ -2,9 +2,16 @@
   "endpoints": [
     {
       "code": "createConsent",
-      "url": "/v2/consents/account-access",
+      "url": "/v2/consents/{consentCategory}",
       "method": "post",
       "request": {
+        "path": [
+          {
+            "code": "consentCategory",
+            "method": "constant",
+            "value": "account-access"
+          }
+        ],
         "headers": [
           {
             "code": "X-Request-ID",
@@ -13,6 +20,11 @@
           {
             "code": "PSU-ID",
             "method": "copy"
+          },
+          {
+            "code": "PSU-ID-Type",
+            "method": "constant",
+            "value": "PHONE"
           },
           {
             "code": "PSU-IP-Address",
@@ -112,7 +124,7 @@
               "parent": "root",
               "method": "copy",
               "source": "bankResponse",
-              "sourceValue": "consentStatus"
+              "sourceValue": "status"
             },
             {
               "type": "value",
@@ -121,14 +133,6 @@
               "method": "copy",
               "source": "bankResponse",
               "sourceValue": "consentId"
-            },
-            {
-              "type": "value",
-              "code": "psuMessage",
-              "parent": "root",
-              "method": "copy",
-              "source": "bankResponse",
-              "sourceValue": "psuMessage"
             },
             {
               "type": "node",
@@ -141,7 +145,7 @@
               "parent": "root",
               "method": "copy",
               "source": "bankResponse",
-              "sourceValue": "get_links.startAuthorisation"
+              "sourceValue": "_links.startAuthorisation.href"
             }
           ]
         }
@@ -149,13 +153,18 @@
     },
     {
       "code": "forcedAuth",
-      "url": "/v2/consents/account-access/{consentId}/authorisations",
+      "url": "/v2/consents/{consentCategory}/{consentId}/authorisations",
       "method": "post",
       "request": {
         "path": [
           {
             "code": "consentId",
             "method": "copy"
+          },
+          {
+            "code": "consentCategory",
+            "method": "constant",
+            "value": "account-access"
           }
         ],
         "headers": [
@@ -196,15 +205,7 @@
               "parent": "_links",
               "method": "copy",
               "source": "bankResponse",
-              "sourceValue": "get_links.scaRedirect"
-            },
-            {
-              "type": "value",
-              "code": "psuMessage",
-              "parent": "root",
-              "method": "copy",
-              "source": "bankResponse",
-              "sourceValue": "psuMessage"
+              "sourceValue": "_links.scaRedirect.href"
             }
           ]
         }
@@ -212,10 +213,14 @@
     },
     {
       "code": "getConsentInformation",
-      "url": "/v2/consents/account-access/{consentId}",
+      "url": "/v2/consents/{consentCategory}/{consentId}",
       "method": "get",
       "request": {
         "path": [
+          {
+            "code": "consentCategory",
+            "method": "copy"
+          },
           {
             "code": "consentId",
             "method": "copy"
@@ -317,10 +322,14 @@
     },
     {
       "code": "revokeConsent",
-      "url": "/v2/consents/account-access/{consentId}",
+      "url": "/v2/consents/{consentCategory}/{consentId}",
       "method": "delete",
       "request": {
         "path": [
+          {
+            "code": "consentCategory",
+            "method": "copy"
+          },
           {
             "code": "consentId",
             "method": "copy"
@@ -339,11 +348,15 @@
     },
     {
       "code": "getConsentStatus",
-      "url": "/v2/consents/account-access/{consentId}/status",
+      "url": "/v2/consents/{consentCategory}/{consentId}/status",
       "method": "get",
       "request": {
         "request": {
           "path": [
+            {
+              "code": "consentCategory",
+              "method": "copy"
+            },
             {
               "code": "consentId",
               "method": "copy"
@@ -367,14 +380,6 @@
                 "method": "copy",
                 "source": "bankResponse",
                 "sourceValue": "consentStatus"
-              },
-              {
-                "type": "value",
-                "code": "psuMessaage",
-                "parent": "root",
-                "method": "copy",
-                "source": "bankResponse",
-                "sourceValue": "psuMessage"
               }
             ]
           }
