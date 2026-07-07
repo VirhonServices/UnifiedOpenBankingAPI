@@ -67,7 +67,7 @@
               "parent": "payments",
               "method": "copy",
               "source": "request",
-              "sourceValue": "access.payments.account.rights"
+              "sourceValue": "access.payments.rights"
             },
             {
               "type": "value",
