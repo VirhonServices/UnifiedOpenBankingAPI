@@ -20,4 +20,12 @@ import java.util.List;
 
 public class ConsentAccess {
     private List<ConsentPaymentAccess> payments;
+
+    public List<ConsentPaymentAccess> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<ConsentPaymentAccess> payments) {
+        this.payments = payments;
+    }
 }

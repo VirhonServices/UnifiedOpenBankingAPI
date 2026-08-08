@@ -24,4 +24,44 @@ public class UnifiedConsentResponseDTO {
     private ConsentLinks links;
 
     // Getters/Setters/Builders
+
+    public String getConsentId() {
+        return consentId;
+    }
+
+    public void setConsentId(String consentId) {
+        this.consentId = consentId;
+    }
+
+    public ConsentStatus getConsentStatus() {
+        return consentStatus;
+    }
+
+    public void setConsentStatus(ConsentStatus consentStatus) {
+        this.consentStatus = consentStatus;
+    }
+
+    public String getPsuMessage() {
+        return psuMessage;
+    }
+
+    public void setPsuMessage(String psuMessage) {
+        this.psuMessage = psuMessage;
+    }
+
+    public ScaMethod getScaMethods() {
+        return scaMethods;
+    }
+
+    public void setScaMethods(ScaMethod scaMethods) {
+        this.scaMethods = scaMethods;
+    }
+
+    public ConsentLinks getLinks() {
+        return links;
+    }
+
+    public void setLinks(ConsentLinks links) {
+        this.links = links;
+    }
 }

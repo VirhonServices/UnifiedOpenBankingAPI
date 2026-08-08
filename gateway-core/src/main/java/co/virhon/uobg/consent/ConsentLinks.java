@@ -19,4 +19,20 @@ package co.virhon.uobg.consent;
 public class ConsentLinks {
     private String startAuthorisation;
     private String scaRedirect; // Добавляем сюда поле из ответа авторизации
+
+    public String getStartAuthorisation() {
+        return startAuthorisation;
+    }
+
+    public void setStartAuthorisation(String startAuthorisation) {
+        this.startAuthorisation = startAuthorisation;
+    }
+
+    public String getScaRedirect() {
+        return scaRedirect;
+    }
+
+    public void setScaRedirect(String scaRedirect) {
+        this.scaRedirect = scaRedirect;
+    }
 }

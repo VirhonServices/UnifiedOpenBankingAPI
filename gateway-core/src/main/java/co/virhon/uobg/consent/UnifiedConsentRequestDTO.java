@@ -34,4 +34,85 @@ public class UnifiedConsentRequestDTO {
     private String tppRedirectUri;
     private String tppNokRedirectUri;
     // Getters/Setters/Builders
+
+
+    public ConsentAccess getAccess() {
+        return access;
+    }
+
+    public void setAccess(ConsentAccess access) {
+        this.access = access;
+    }
+
+    public Boolean getRecurringIndicator() {
+        return recurringIndicator;
+    }
+
+    public void setRecurringIndicator(Boolean recurringIndicator) {
+        this.recurringIndicator = recurringIndicator;
+    }
+
+    public LocalDate getValidTo() {
+        return validTo;
+    }
+
+    public void setValidTo(LocalDate validTo) {
+        this.validTo = validTo;
+    }
+
+    public Integer getFrequencyPerDay() {
+        return frequencyPerDay;
+    }
+
+    public void setFrequencyPerDay(Integer frequencyPerDay) {
+        this.frequencyPerDay = frequencyPerDay;
+    }
+
+    public String getBankId() {
+        return bankId;
+    }
+
+    public void setBankId(String bankId) {
+        this.bankId = bankId;
+    }
+
+    public String getPsuId() {
+        return psuId;
+    }
+
+    public void setPsuId(String psuId) {
+        this.psuId = psuId;
+    }
+
+    public String getPsuIdType() {
+        return psuIdType;
+    }
+
+    public void setPsuIdType(String psuIdType) {
+        this.psuIdType = psuIdType;
+    }
+
+    public String getPsuIpAddress() {
+        return psuIpAddress;
+    }
+
+    public void setPsuIpAddress(String psuIpAddress) {
+        this.psuIpAddress = psuIpAddress;
+    }
+
+    public String getTppRedirectUri() {
+        return tppRedirectUri;
+    }
+
+    public void setTppRedirectUri(String tppRedirectUri) {
+        this.tppRedirectUri = tppRedirectUri;
+    }
+
+    public String getTppNokRedirectUri() {
+        return tppNokRedirectUri;
+    }
+
+    public void setTppNokRedirectUri(String tppNokRedirectUri) {
+        this.tppNokRedirectUri = tppNokRedirectUri;
+    }
 }

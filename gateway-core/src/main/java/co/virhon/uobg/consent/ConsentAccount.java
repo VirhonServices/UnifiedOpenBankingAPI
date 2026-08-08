@@ -19,4 +19,20 @@ package co.virhon.uobg.consent;
 public class ConsentAccount {
     private String iban;
     private String ccy;
+
+    public String getIban() {
+        return iban;
+    }
+
+    public void setIban(String iban) {
+        this.iban = iban;
+    }
+
+    public String getCcy() {
+        return ccy;
+    }
+
+    public void setCcy(String ccy) {
+        this.ccy = ccy;
+    }
 }
