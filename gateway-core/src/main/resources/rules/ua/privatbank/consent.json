@@ -342,42 +342,40 @@
       "url": "/v2/consents/account-access/{consentId}/status",
       "method": "get",
       "request": {
-        "request": {
-          "path": [
+        "path": [
+          {
+            "code": "consentId",
+            "method": "copy"
+          }
+        ],
+        "headers": [
+          {
+            "code": "X-Request-ID",
+            "method": "copy"
+          }
+        ]
+      },
+      "response": {
+        "httpStatusCode": "200",
+        "payload": {
+          "nodes": [
             {
-              "code": "consentId",
-              "method": "copy"
-            }
-          ],
-          "headers": [
+              "type": "value",
+              "code": "consentStatus",
+              "parent": "root",
+              "method": "copy",
+              "source": "bankResponse",
+              "sourceValue": "consentStatus"
+            },
             {
-              "code": "X-Request-ID",
-              "method": "copy"
+              "type": "value",
+              "code": "psuMessaage",
+              "parent": "root",
+              "method": "copy",
+              "source": "bankResponse",
+              "sourceValue": "psuMessage"
             }
           ]
-        },
-        "response": {
-          "httpStatusCode": "200",
-          "payload": {
-            "nodes": [
-              {
-                "type": "value",
-                "code": "consentStatus",
-                "parent": "root",
-                "method": "copy",
-                "source": "bankResponse",
-                "sourceValue": "consentStatus"
-              },
-              {
-                "type": "value",
-                "code": "psuMessaage",
-                "parent": "root",
-                "method": "copy",
-                "source": "bankResponse",
-                "sourceValue": "psuMessage"
-              }
-            ]
-          }
         }
       }
     }
