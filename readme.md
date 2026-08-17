@@ -1,41 +1,31 @@
 # Virhon Unified OpenBanking Gateway
-Цей проєкт націлено на створення універсального 
-API для доступу до банків через інтерфейс 
-OpenBanking (UOBG). Цільова аудиторія цього проекту - TPP,
-які мають ліцензії AISP або PISP, або обидві.
+This project aims to create a universal API for accessing banks via the OpenBanking interface (UOBG). The target audience of this project is TPPs holding AISP, PISP licenses, or both.
 
 ## Product
-Продуктом цього проєкту є програмне забезпечення,
-яке розгортається у вигляді docker-контейнеру в
-периметрі TPP, та уніфікує доступ до API банків.
+The product of this project is software that deploys as a Docker container within the TPP's perimeter and unifies access to bank APIs.
 
 ## Target Market
-На старті продукт націлено на українські TPP, але 
-потенційно - може бути розширено на весь світ.
+Initially, the product focuses on Ukrainian TPPs, but it has the potential to expand worldwide.
 
 ## Core Value
-Ключова цінність цього продукту:
-1. UOBG Є лише каналом доступу до API банків, не 
-зберігає фінансової інформації користувачів
-2. Розгортається в периметрі TPP, тобто TPP не 
-мають передавати свої ключі та сертифікати 
-посереднику
-3. Дозволяє TPP зекономити кошти на розробку 
-інтеграцій з кожним окремим банком власними 
-ресурсами
-4. Ядро продукту керується метаданими, що
-полегшує додавання нових інтеграцій
+The key value of this product:
 
-## Архітектура
-![Базова архітектура](./unified-openbanking-gateway-principal-01.drawio.png)
-1. UOBG це не SaaS, він розгортається в периметрі TPP
-2. GatewayCore - ядро системи. Відповідає за формування 
-запитів до банків та розбір відповідей від банків
-відповідно до метаданих
-3. BanksConnector - sidecar, який відповідає за
-безпосередню комунікацію з банками, накладання
-підписів, встановлення mTLS з'єднання
-4. QWAC, QSealC - сертифікати TPP, які зберігаються
-в периметрі TPP
-5. Metadata - сховище, яке зберігає правіла
-перетворення запитів та відповідей
+1. UOBG serves solely as an access channel to bank APIs and does not store users' financial information.
+
+2. It deploys within the TPP's perimeter, meaning TPPs do not need to share their keys and certificates with an intermediary.
+
+3. It allows TPPs to save money on developing integrations with each individual bank using their own resources.
+
+4. The core of the product is metadata-driven, which simplifies adding new integrations.
+
+## Architecture
+![Principal architecture](./unified-openbanking-gateway-principal-01.drawio.png)
+1. UOBG is not a SaaS; it deploys within the TPP's perimeter.
+
+2. GatewayCore is the core of the system. It is responsible for generating requests to banks and parsing responses from banks according to metadata.
+
+3. BanksConnector is a sidecar responsible for direct communication with banks, applying signatures, and establishing an mTLS connection.
+
+4. QWAC, QSealC are TPP certificates stored within the TPP's perimeter.
+
+5. Metadata is the storage that holds the rules for transforming requests and responses.
