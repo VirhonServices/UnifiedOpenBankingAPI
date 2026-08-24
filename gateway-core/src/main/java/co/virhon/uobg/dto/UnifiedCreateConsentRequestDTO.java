@@ -14,11 +14,14 @@
  * limitations under the License.
  */
 
-package co.virhon.uobg.consent;
+package co.virhon.uobg.dto;
+
+import co.virhon.uobg.domain.consent.ConsentAccess;
+import co.virhon.uobg.domain.consent.ConsentType;
 
 import java.time.LocalDate;
 
-public class UnifiedConsentRequestDTO {
+public class UnifiedCreateConsentRequestDTO {
     // Данные тела запроса
     private ConsentAccess access;
     private ConsentType consentType;
@@ -42,6 +45,14 @@ public class UnifiedConsentRequestDTO {
 
     public void setAccess(ConsentAccess access) {
         this.access = access;
+    }
+
+    public ConsentType getConsentType() {
+        return consentType;
+    }
+
+    public void setConsentType(ConsentType consentType) {
+        this.consentType = consentType;
     }
 
     public Boolean getRecurringIndicator() {

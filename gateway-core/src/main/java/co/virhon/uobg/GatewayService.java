@@ -16,5 +16,19 @@
 
 package co.virhon.uobg;
 
+import co.virhon.uobg.dto.BankSpecificRequestDTO;
+import co.virhon.uobg.dto.UnifiedCreateConsentRequestDTO;
+import co.virhon.uobg.dto.UnifiedCreateConsentResponseDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
 public class GatewayService {
+
+    @Autowired
+    private GatewayMapper<UnifiedCreateConsentRequestDTO, BankSpecificRequestDTO> mapper;
+
+    public BankSpecificRequestDTO processConsentCreation(UnifiedCreateConsentRequestDTO requestDTO) {
+        return mapper.map(requestDTO, requestDTO.getBankId());
+    }
 }

@@ -1,7 +1,6 @@
 {
-  "endpoints": [
-    {
-      "code": "createConsent",
+  "endpoints": {
+    "createConsent": {
       "url": "/v2/consents/account-access",
       "method": "post",
       "request": {
@@ -160,8 +159,7 @@
         }
       }
     },
-    {
-      "code": "forcedAuth",
+    "forcedAuth": {
       "url": "/v2/consents/account-access/{consent_id}/authorisations",
       "method": "post",
       "request": {
@@ -227,8 +225,7 @@
         }
       }
     },
-    {
-      "code": "getConsentInformation",
+    "getConsentInformation": {
       "url": "/v2/consents/account-access/{consentId}",
       "method": "get",
       "request": {
@@ -332,8 +329,7 @@
         }
       }
     },
-    {
-      "code": "revokeConsent",
+    "revokeConsent": {
       "url": "/v2/consents/{consentCategory}/{consentId}",
       "method": "delete",
       "request": {
@@ -359,8 +355,7 @@
         "httpStatusCode": "204"
       }
     },
-    {
-      "code": "getConsentStatus",
+    "getConsentStatus": {
       "url": "/v2/consents/account-access/{consentId}/status",
       "method": "get",
       "request": {
@@ -395,5 +390,5 @@
         }
       }
     }
-  ]
+  }
 }

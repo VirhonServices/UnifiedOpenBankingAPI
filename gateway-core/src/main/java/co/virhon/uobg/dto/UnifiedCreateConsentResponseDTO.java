@@ -14,9 +14,13 @@
  * limitations under the License.
  */
 
-package co.virhon.uobg.consent;
+package co.virhon.uobg.dto;
 
-public class UnifiedConsentResponseDTO {
+import co.virhon.uobg.domain.consent.ConsentLinks;
+import co.virhon.uobg.domain.consent.ConsentStatus;
+import co.virhon.uobg.domain.consent.ScaMethod;
+
+public class UnifiedCreateConsentResponseDTO {
     private String consentId;
     private ConsentStatus consentStatus;
     private String psuMessage;

@@ -14,25 +14,22 @@
  * limitations under the License.
  */
 
-package co.virhon.uobg.rules;
+package co.virhon.uobg.domain.rules;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
-class RequestConfig {
-    private List<ParameterRule> path;
+class ResponseConfig {
+    @JsonProperty("httpStatusCode")
+    private String httpStatusCode;
     private List<ParameterRule> headers;
     private Payload payload;
 
-    // вложенный объект в getConsentStatus (request.request)
-    private RequestConfig request;
-
     // геттеры и сеттеры
-    public List<ParameterRule> getPath() { return path; }
-    public void setPath(List<ParameterRule> path) { this.path = path; }
+    public String getHttpStatusCode() { return httpStatusCode; }
+    public void setHttpStatusCode(String httpStatusCode) { this.httpStatusCode = httpStatusCode; }
     public List<ParameterRule> getHeaders() { return headers; }
     public void setHeaders(List<ParameterRule> headers) { this.headers = headers; }
     public Payload getPayload() { return payload; }
     public void setPayload(Payload payload) { this.payload = payload; }
-    public RequestConfig getRequest() { return request; }
-    public void setRequest(RequestConfig request) { this.request = request; }
 }

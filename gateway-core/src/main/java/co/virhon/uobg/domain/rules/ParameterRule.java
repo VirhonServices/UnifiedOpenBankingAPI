@@ -14,24 +14,24 @@
  * limitations under the License.
  */
 
-package co.virhon.uobg.rules;
+package co.virhon.uobg.domain.rules;
 
-class Endpoint {
+public class ParameterRule {
     private String code;
-    private String url;
     private String method;
-    private RequestConfig request;
-    private ResponseConfig response;
+    private String source;
+    private String sourceValue;
+    private String value;
 
     // геттеры и сеттеры
     public String getCode() { return code; }
     public void setCode(String code) { this.code = code; }
-    public String getUrl() { return url; }
-    public void setUrl(String url) { this.url = url; }
     public String getMethod() { return method; }
     public void setMethod(String method) { this.method = method; }
-    public RequestConfig getRequest() { return request; }
-    public void setRequest(RequestConfig request) { this.request = request; }
-    public ResponseConfig getResponse() { return response; }
-    public void setResponse(ResponseConfig response) { this.response = response; }
+    public String getSource() { return source; }
+    public void setSource(String source) { this.source = source; }
+    public String getSourceValue() { return sourceValue; }
+    public void setSourceValue(String sourceValue) { this.sourceValue = sourceValue; }
+    public String getValue() { return value; }
+    public void setValue(String value) { this.value = value; }
 }

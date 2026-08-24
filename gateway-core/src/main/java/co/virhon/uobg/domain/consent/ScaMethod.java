@@ -14,18 +14,8 @@
  * limitations under the License.
  */
 
-package co.virhon.uobg.rules;
+package co.virhon.uobg.domain.consent;
 
-class ParameterRule {
-    private String code;
-    private String method;
-    private String source;
-
-    // геттеры и сеттеры
-    public String getCode() { return code; }
-    public void setCode(String code) { this.code = code; }
-    public String getMethod() { return method; }
-    public void setMethod(String method) { this.method = method; }
-    public String getSource() { return source; }
-    public void setSource(String source) { this.source = source; }
+public enum ScaMethod {
+    DECOUPLED, REDIRECT
 }

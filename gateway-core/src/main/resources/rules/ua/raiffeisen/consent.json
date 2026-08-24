@@ -1,7 +1,6 @@
 {
-  "endpoints": [
-    {
-      "code": "createConsent",
+  "endpoints": {
+    "createConsent": {
       "url": "/v2/consents/account-access",
       "method": "post",
       "request": {
@@ -157,8 +156,7 @@
         }
       }
     },
-    {
-      "code": "forcedAuth",
+    "forcedAuth": {
       "environments": {
         "stage": "https://openbank-sandbox.raiffeisen.ua/rbua/prod02/psd2-bgs-authorisation-api",
         "prod": ""
@@ -220,8 +218,7 @@
         }
       }
     },
-    {
-      "code": "getConsentInformation",
+    "getConsentInformation": {
       "url": "/v2/consents/account-access/{consentId}",
       "method": "get",
       "request": {
@@ -325,8 +322,7 @@
         }
       }
     },
-    {
-      "code": "revokeConsent",
+    "revokeConsent": {
       "url": "/v2/consents/account-access/{consentId}",
       "method": "delete",
       "request": {
@@ -347,8 +343,7 @@
         "httpStatusCode": "204"
       }
     },
-    {
-      "code": "getConsentStatus",
+    "getConsentStatus": {
       "url": "/v2/consents/account-access/{consentId}/status",
       "method": "get",
       "request": {
@@ -383,5 +378,5 @@
         }
       }
     }
-  ]
+  }
 }

@@ -14,25 +14,13 @@
  * limitations under the License.
  */
 
-package co.virhon.uobg.consent;
+package co.virhon.uobg.domain.rules;
 
-public class ConsentAccount {
-    private String iban;
-    private String ccy;
+import java.util.Map;
 
-    public String getIban() {
-        return iban;
-    }
+public class ApiRulesConfig {
+    private Map<String, Endpoint> endpoints;
 
-    public void setIban(String iban) {
-        this.iban = iban;
-    }
-
-    public String getCcy() {
-        return ccy;
-    }
-
-    public void setCcy(String ccy) {
-        this.ccy = ccy;
-    }
+    public Map<String, Endpoint> getEndpoints() { return endpoints; }
+    public void setEndpoints(Map<String, Endpoint> endpoints) { this.endpoints = endpoints; }
 }

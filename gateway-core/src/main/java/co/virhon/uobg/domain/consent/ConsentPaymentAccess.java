@@ -14,13 +14,27 @@
  * limitations under the License.
  */
 
-package co.virhon.uobg.rules;
+package co.virhon.uobg.domain.consent;
 
 import java.util.List;
 
-class Payload {
-    private List<NodeRule> nodes;
+public class ConsentPaymentAccess {
+    private ConsentAccount account;
+    private List<AccountAccessRight> rights;
 
-    public List<NodeRule> getNodes() { return nodes; }
-    public void setNodes(List<NodeRule> nodes) { this.nodes = nodes; }
+    public ConsentAccount getAccount() {
+        return account;
+    }
+
+    public void setAccount(ConsentAccount account) {
+        this.account = account;
+    }
+
+    public List<AccountAccessRight> getRights() {
+        return rights;
+    }
+
+    public void setRights(List<AccountAccessRight> rights) {
+        this.rights = rights;
+    }
 }

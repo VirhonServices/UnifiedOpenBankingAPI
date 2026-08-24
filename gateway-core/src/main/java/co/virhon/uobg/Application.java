@@ -14,25 +14,14 @@
  * limitations under the License.
  */
 
-package co.virhon.uobg.consent;
+package co.virhon.uobg;
 
-public class ConsentLinks {
-    private String startAuthorisation;
-    private String scaRedirect; // Добавляем сюда поле из ответа авторизации
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-    public String getStartAuthorisation() {
-        return startAuthorisation;
-    }
-
-    public void setStartAuthorisation(String startAuthorisation) {
-        this.startAuthorisation = startAuthorisation;
-    }
-
-    public String getScaRedirect() {
-        return scaRedirect;
-    }
-
-    public void setScaRedirect(String scaRedirect) {
-        this.scaRedirect = scaRedirect;
+@SpringBootApplication
+public class Application {
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
     }
 }

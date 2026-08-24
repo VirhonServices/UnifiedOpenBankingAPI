@@ -1,0 +1,40 @@
+/*
+ * Copyright 2026 Viktor Honcharov
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package co.virhon.uobg.domain.rules;
+
+public class NodeRule {
+    private String type;
+    private String code;
+    private String parent;
+    private String method;
+    private String source;
+    private String sourceValue;
+
+    // геттеры и сеттеры
+    public String getType() { return type; }
+    public void setType(String type) { this.type = type; }
+    public String getCode() { return code; }
+    public void setCode(String code) { this.code = code; }
+    public String getParent() { return parent; }
+    public void setParent(String parent) { this.parent = parent; }
+    public String getMethod() { return method; }
+    public void setMethod(String method) { this.method = method; }
+    public String getSource() { return source; }
+    public void setSource(String source) { this.source = source; }
+    public String getSourceValue() { return sourceValue; }
+    public void setSourceValue(String sourceValue) { this.sourceValue = sourceValue; }
+}

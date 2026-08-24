@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package co.virhon.uobg;
+package co.virhon.uobg.dto;
 import java.util.Map;
 
 public class BankSpecificRequestDTO {

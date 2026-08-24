@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package co.virhon.uobg.rules;
+package co.virhon.uobg.domain.rules;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;

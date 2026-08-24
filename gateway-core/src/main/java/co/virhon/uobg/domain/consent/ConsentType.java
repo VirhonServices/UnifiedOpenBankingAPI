@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package co.virhon.uobg.consent;
+package co.virhon.uobg.domain.consent;
 
-public enum ScaMethod {
-    DECOUPLED, REDIRECT
+public enum ConsentType {
+    accountsList,
+    detailed
 }

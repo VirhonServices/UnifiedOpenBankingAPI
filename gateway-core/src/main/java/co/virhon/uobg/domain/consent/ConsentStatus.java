@@ -14,27 +14,9 @@
  * limitations under the License.
  */
 
-package co.virhon.uobg.consent;
+package co.virhon.uobg.domain.consent;
 
-import java.util.List;
-
-public class ConsentPaymentAccess {
-    private ConsentAccount account;
-    private List<AccountAccessRight> rights;
-
-    public ConsentAccount getAccount() {
-        return account;
-    }
-
-    public void setAccount(ConsentAccount account) {
-        this.account = account;
-    }
-
-    public List<AccountAccessRight> getRights() {
-        return rights;
-    }
-
-    public void setRights(List<AccountAccessRight> rights) {
-        this.rights = rights;
-    }
+public enum ConsentStatus {
+    received, rejected, valid, partiallyAuthorised, revokedByPsu,
+    terminatedByTpp, replacedByTpp, expired
 }

@@ -14,8 +14,18 @@
  * limitations under the License.
  */
 
-package co.virhon.uobg.consent;
+package co.virhon.uobg.domain.consent;
 
-public enum AccountAccessRight {
-    accountDetails, balances, transactions
+import java.util.List;
+
+public class ConsentAccess {
+    private List<ConsentPaymentAccess> payments;
+
+    public List<ConsentPaymentAccess> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<ConsentPaymentAccess> payments) {
+        this.payments = payments;
+    }
 }

@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package co.virhon.uobg.consent;
+package co.virhon.uobg.domain.consent;
 
-public enum ConsentType {
-    accountsList,
-    detailed
+public enum AccountAccessRight {
+    accountDetails, balances, transactions
 }

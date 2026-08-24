@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package co.virhon.uobg.rules;
+package co.virhon.uobg.domain.rules;
 
 import java.util.List;
 
-public class ApiRulesConfig {
-    private List<Endpoint> endpoints;
+public class Payload {
+    private List<NodeRule> nodes;
 
-    public List<Endpoint> getEndpoints() { return endpoints; }
-    public void setEndpoints(List<Endpoint> endpoints) { this.endpoints = endpoints; }
+    public List<NodeRule> getNodes() { return nodes; }
+    public void setNodes(List<NodeRule> nodes) { this.nodes = nodes; }
 }

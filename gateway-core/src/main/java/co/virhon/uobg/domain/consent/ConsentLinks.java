@@ -14,18 +14,25 @@
  * limitations under the License.
  */
 
-package co.virhon.uobg.consent;
+package co.virhon.uobg.domain.consent;
 
-import java.util.List;
+public class ConsentLinks {
+    private String startAuthorisation;
+    private String scaRedirect; // Добавляем сюда поле из ответа авторизации
 
-public class ConsentAccess {
-    private List<ConsentPaymentAccess> payments;
-
-    public List<ConsentPaymentAccess> getPayments() {
-        return payments;
+    public String getStartAuthorisation() {
+        return startAuthorisation;
     }
 
-    public void setPayments(List<ConsentPaymentAccess> payments) {
-        this.payments = payments;
+    public void setStartAuthorisation(String startAuthorisation) {
+        this.startAuthorisation = startAuthorisation;
+    }
+
+    public String getScaRedirect() {
+        return scaRedirect;
+    }
+
+    public void setScaRedirect(String scaRedirect) {
+        this.scaRedirect = scaRedirect;
     }
 }
