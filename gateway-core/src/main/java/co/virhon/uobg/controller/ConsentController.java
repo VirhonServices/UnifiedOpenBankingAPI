@@ -37,6 +37,8 @@ public class ConsentController {
 
             // Заголовки (мапим вручную в поля DTO, чтобы собрать весь контекст в одном объекте)
             @RequestHeader("BankID") String bankId,
+            @RequestHeader("X-Request-ID") String xRequestId,
+            @RequestHeader(value = "ClientID", required = false) String clientId,
             @RequestHeader("PSU-ID") String psuId,
             @RequestHeader("PSU-ID-type") String psuIdType,
             @RequestHeader("PSU-IP-Address") String psuIpAddress,
@@ -45,6 +47,11 @@ public class ConsentController {
     ) {
         // Заполняем контекстные поля заголовков внутрь DTO
         requestDto.setBankId(bankId);
+        requestDto.setXRequestId(xRequestId);
+        if ("raiffeisen".equalsIgnoreCase(bankId)
+                || "ua-raiffeisen".equalsIgnoreCase(bankId)) {
+            requestDto.setClientId(clientId);
+        }
         requestDto.setPsuId(psuId);
         requestDto.setPsuIdType(psuIdType);
         requestDto.setPsuIpAddress(psuIpAddress);

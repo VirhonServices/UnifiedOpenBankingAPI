@@ -24,7 +24,6 @@ import co.virhon.uobg.domain.rules.RequestConfig;
 import co.virhon.uobg.domain.rules.RulesLoader;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.stereotype.Component;
 
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -39,7 +38,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
-@Component
 public class GatewayMapper<UnifiedDTO, BankSpecificDTO> {
     private static final String RULES_PATH_TEMPLATE = "rules/%s/%s/%s.json";
 
@@ -61,7 +59,7 @@ public class GatewayMapper<UnifiedDTO, BankSpecificDTO> {
 
         String rulesPath = RULES_PATH_TEMPLATE.formatted(
                 countryCode,
-                requireCode(bankCode, "bankCode"),
+                normalizeBankCode(bankCode),
                 resolveRulesName()
         );
         ApiRulesConfig rules = RulesLoader.loadRulesFromClasspath(rulesPath);
@@ -266,5 +264,14 @@ public class GatewayMapper<UnifiedDTO, BankSpecificDTO> {
             throw new IllegalArgumentException(parameterName + " must not be blank");
         }
         return code.trim().toLowerCase(Locale.ROOT);
+    }
+
+    private String normalizeBankCode(String bankCode) {
+        String normalized = requireCode(bankCode, "bankCode");
+        String countryPrefix = countryCode + "-";
+        if (normalized.startsWith(countryPrefix)) {
+            normalized = normalized.substring(countryPrefix.length());
+        }
+        return "ukrsibbank".equals(normalized) ? "ukrsib" : normalized;
     }
 }

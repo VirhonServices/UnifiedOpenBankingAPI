@@ -54,8 +54,10 @@ class GatewayMapperTest {
         assertAll(
                 () -> assertEquals("/v2/consents/account-access", result.getUrl()),
                 () -> assertEquals("post", result.getMethod()),
+                () -> assertEquals("request-123", result.getHeaders().get("X-Request-ID")),
                 () -> assertEquals("psu-42", result.getHeaders().get("PSU-ID")),
                 () -> assertEquals("192.0.2.10", result.getHeaders().get("PSU-IP-Address")),
+                () -> assertEquals(false, result.getHeaders().containsKey("client_id")),
                 () -> assertEquals("UA123456789", payment.path("account").path("iban").asText()),
                 () -> assertEquals("UAH", payment.path("account").path("currency").asText()),
                 () -> assertEquals("balances", payment.path("rights").get(0).asText()),
@@ -63,6 +65,25 @@ class GatewayMapperTest {
                 () -> assertEquals(true, payload.path("reccurringIndicator").asBoolean()),
                 () -> assertEquals("2026-12-31", payload.path("validTo").asText()),
                 () -> assertEquals(4, payload.path("frequencyPerDay").asInt())
+        );
+    }
+
+    @Test
+    void mapsOptionalClientIdOnlyWhenRaiffeisenRulesRequireIt() {
+        GatewayMapper<UnifiedCreateConsentRequestDTO, BankSpecificRequestDTO> mapper =
+                new GatewayMapper<>(
+                        UnifiedCreateConsentRequestDTO.class,
+                        BankSpecificRequestDTO.class,
+                        "ua"
+                );
+        UnifiedCreateConsentRequestDTO source = createConsentRequest();
+        source.setClientId("raiffeisen-client-42");
+
+        BankSpecificRequestDTO result = mapper.map(source, "ua-raiffeisen");
+
+        assertAll(
+                () -> assertEquals("raiffeisen-client-42", result.getHeaders().get("client_id")),
+                () -> assertEquals("request-123", result.getHeaders().get("X-Request-ID"))
         );
     }
 
@@ -84,6 +105,7 @@ class GatewayMapperTest {
         request.setRecurringIndicator(true);
         request.setValidTo(LocalDate.of(2026, 12, 31));
         request.setFrequencyPerDay(4);
+        request.setXRequestId("request-123");
         request.setPsuId("psu-42");
         request.setPsuIpAddress("192.0.2.10");
         return request;

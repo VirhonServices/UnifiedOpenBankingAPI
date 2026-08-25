@@ -31,6 +31,8 @@ public class UnifiedCreateConsentRequestDTO {
 
     // Контекстные параметры (извлеченные из HTTP-заголовков)
     private String bankId;
+    private String xRequestId;
+    private String clientId;
     private String psuId;
     private String psuIdType;
     private String psuIpAddress;
@@ -85,6 +87,22 @@ public class UnifiedCreateConsentRequestDTO {
 
     public void setBankId(String bankId) {
         this.bankId = bankId;
+    }
+
+    public String getXRequestId() {
+        return xRequestId;
+    }
+
+    public void setXRequestId(String xRequestId) {
+        this.xRequestId = xRequestId;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 
     public String getPsuId() {

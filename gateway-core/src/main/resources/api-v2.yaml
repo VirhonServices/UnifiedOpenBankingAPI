@@ -211,7 +211,7 @@ components:
     ClientID:
       in: header
       name: ClientID
-      description: ID of the bank client (needs to be for UkrSibBank)
+      description: Optional ID of the bank client (used only for Raiffeisen Bank requests)
       type: string
       example: '98283ued88d8d88d8d'
 
